@@ -1,0 +1,36 @@
+[package]
+name = "full-search"
+version = "0.1.0"
+authors = ["Moritz Miodek <moritzmiodek@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+lazy_static = { version = "1.4.0", optional = true }
+chrono = { version = "0.4", optional = true }
+uom = { version = "0.31.1", default-features = false, features = ["f64", "si"]}
+csv = { version = "1.1.6", optional = true }
+heapless = {version =  "0.7.4", features= ["defmt"]}
+tfmicro = { git = "https://github.com/Recognition2/tfmicro.git", branch = "master", optional = true }
+criterion = { version = "0.4", optional = true }
+streaming-iterator = { version = "0.1.6", optional = true }
+tflitec = {version = "0.5.2", optional = true }
+pyo3 = { version = "0.17.3", features = ["extension-module","abi3-py310"], optional = true }
+libc = { version = "0.2", optional = true}
+
+[features]
+default = ["std", "classification", "simple_schedule"]
+classification = []
+regression = []
+verbose = []
+simple_schedule=[]
+opt_schedule=[]
+log = []
+std = ["chrono", "csv", "tflitec", "libc"]
+no_std = ["tfmicro"]
+mem = ["lazy_static"]
+mds_pi = []
+
+[profile.release]
+debug = true
